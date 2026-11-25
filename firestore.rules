@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 게임 진행: 본인 것만 읽고 쓰기
+    match /saves/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+                            && request.resource.data.save.size() < 20000;
+    }
+
+    // 플레이 기록: 본인 이름으로 추가만 가능, 게임에서는 읽기 불가 (콘솔에서 확인)
+    match /plays/{id} {
+      allow create: if request.auth != null
+                    && request.resource.data.uid == request.auth.uid
+                    && request.resource.data.stage is int
+                    && request.resource.data.seconds is int
+                    && request.resource.data.seconds < 86400;
+      allow read, update, delete: if false;
+    }
+
+    // 피드백: 본인 이름으로 추가만 가능, 글자 수 제한
+    match /feedback/{id} {
+      allow create: if request.auth != null
+                    && request.resource.data.uid == request.auth.uid
+                    && request.resource.data.again in ['yes', 'maybe', 'no']
+                    && request.resource.data.fun.size() <= 300
+                    && request.resource.data.sorry.size() <= 300;
+      allow read, update, delete: if false;
+    }
+  }
+}
