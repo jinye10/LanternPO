@@ -212,9 +212,103 @@ body{word-break:keep-all}
 .standglow{opacity:0;pointer-events:none}
 .stand.want .standglow{opacity:1;animation:twinkle .8s infinite alternate}
 .gauge>span:first-child::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--lamp);box-shadow:0 0 8px var(--lamp);margin-right:6px;vertical-align:1px}
+
+/* ===== v4 손맛·분위기 다듬기 ===== */
+a.btn{color:var(--ink)}
+.btn,.tool,.bag,.prop,.chip{transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .2s,background .2s,border-color .2s,color .2s}
+.btn:hover{transform:translateY(-1px) scale(1.03);border-color:#ffe7a699;box-shadow:0 0 16px #ffd27a33}
+.btn:active{transform:translateY(1px) scale(.97)}
+.btn.fill{box-shadow:0 3px 0 #b8893a,0 0 18px #ffd27a40}
+.btn.fill:hover{box-shadow:0 4px 0 #b8893a,0 0 28px #ffd27a88}
+.btn.fill:active{box-shadow:0 1px 0 #b8893a,0 0 12px #ffd27a55}
+.tool:not(.on):hover{transform:translateY(-2px);color:var(--ink);background:#ffffff12}
+.tool:active{transform:scale(.93)}
+.tool.on{box-shadow:0 0 18px #ffd27a66}
+.bag:hover{transform:translateY(-2px)}
+.bag.bump{animation:bagBump .3s cubic-bezier(.3,1.8,.5,1)}
+@keyframes bagBump{40%{transform:scale(1.12,.92)}}
+.screen.on{animation:scrIn .45s ease both}
+@keyframes scrIn{from{opacity:0}to{opacity:1}}
+.modal.on{animation:scrIn .25s ease both;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.modal.on .card{animation:fadeInUp .42s cubic-bezier(.2,1.2,.4,1) both}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+#s1.on .title-wrap>*{animation:fadeInUp .7s cubic-bezier(.2,1,.4,1) both}
+#s1.on .title-wrap>:nth-child(2){animation-delay:.12s}#s1.on .title-wrap>:nth-child(3){animation-delay:.24s}
+#s1.on .title-wrap>:nth-child(n+4){animation-delay:.38s}
+.title-wrap h1{animation:fadeInUp .7s both,breathe 4s ease-in-out 1s infinite alternate!important}
+@keyframes breathe{from{text-shadow:0 0 22px #ffd27a55}to{text-shadow:0 0 40px #ffd27aaa,0 0 4px #fff3}}
+#s4.on .result>*{animation:fadeInUp .55s cubic-bezier(.2,1,.4,1) both}#s4.on .result>:nth-child(2){animation-delay:.15s}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 72% 68% at 50% 54%,transparent 58%,#04060cb3 100%)}
+.motes{position:absolute;inset:0;pointer-events:none;overflow:hidden;transition:opacity 1.2s}
+.motes i{position:absolute;width:var(--s);height:var(--s);border-radius:50%;background:radial-gradient(circle,var(--c,#ffe7a6) 0,transparent 70%);opacity:0;animation:mote var(--d) ease-in-out var(--dl) infinite}
+@keyframes mote{0%{transform:translate(0,0);opacity:0}20%{opacity:var(--o)}80%{opacity:var(--o)}100%{transform:translate(var(--x),var(--y));opacity:0}}
+.app.shake{animation:appShake .3s}
+@keyframes appShake{20%{transform:translate(-3px,1px)}40%{transform:translate(3px,-2px)}60%{transform:translate(-2px,2px)}80%{transform:translate(2px,-1px)}}
+.puff{animation:puff .5s ease-out forwards;transform-box:fill-box;transform-origin:center;pointer-events:none}
+@keyframes puff{from{transform:scale(.3);opacity:.7}to{transform:scale(1.6) translateY(-6px);opacity:0}}
+.flash{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 50%,#ffe7a6aa,transparent 65%);opacity:0;z-index:6}
+.flash.on{animation:flash 1.1s ease-out}
+@keyframes flash{15%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.motes{display:none}.app.shake,.flash.on{animation:none}.screen.on,.modal.on .card,#s1.on .title-wrap>*,#s4.on .result>*{animation:none!important}}
+
+/* ===== v4 도구 커서: 잡은 도구 모양으로 마우스가 바뀌어요 ===== */
+svg[data-tool=pick]{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20x%3D%223%22%20y%3D%2213%22%20width%3D%224.2%22%20height%3D%2210%22%20rx%3D%222.1%22%20transform%3D%22rotate%28-35%205%2018%29%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%229%22%20y%3D%223%22%20width%3D%224%22%20height%3D%2213%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2213%22%20y%3D%222%22%20width%3D%224%22%20height%3D%2214%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2217%22%20y%3D%224%22%20width%3D%224%22%20height%3D%2212%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2221%22%20y%3D%227%22%20width%3D%223.6%22%20height%3D%2210%22%20rx%3D%221.8%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M8%2014%20L8%2020%20Q8%2029%2016%2029%20Q24.6%2029%2024.6%2020%20L24.6%2014%20Z%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E") 13 4,default}
+svg[data-tool=pick] :is(.trash,.pile,.glint,.stand,.crack.lit){cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20x%3D%223%22%20y%3D%2213%22%20width%3D%224.2%22%20height%3D%2210%22%20rx%3D%222.1%22%20transform%3D%22rotate%28-35%205%2018%29%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%229%22%20y%3D%228%22%20width%3D%224%22%20height%3D%228%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2213%22%20y%3D%227%22%20width%3D%224%22%20height%3D%229%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2217%22%20y%3D%229%22%20width%3D%224%22%20height%3D%227%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2212%22%20width%3D%223.6%22%20height%3D%225%22%20rx%3D%221.8%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M8%2014%20L8%2020%20Q8%2029%2016%2029%20Q24.6%2029%2024.6%2020%20L24.6%2014%20Z%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M26%204l2-2M27%208h3M23%202l.5-2%22%20stroke%3D%22%23ffd27a%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E") 14 9,pointer}
+svg[data-tool=pick] .item{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20x%3D%223%22%20y%3D%2213%22%20width%3D%224.2%22%20height%3D%2210%22%20rx%3D%222.1%22%20transform%3D%22rotate%28-35%205%2018%29%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%229%22%20y%3D%228%22%20width%3D%224%22%20height%3D%228%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2213%22%20y%3D%227%22%20width%3D%224%22%20height%3D%229%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2217%22%20y%3D%229%22%20width%3D%224%22%20height%3D%227%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2212%22%20width%3D%223.6%22%20height%3D%225%22%20rx%3D%221.8%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M8%2014%20L8%2020%20Q8%2029%2016%2029%20Q24.6%2029%2024.6%2020%20L24.6%2014%20Z%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M26%204l2-2M27%208h3M23%202l.5-2%22%20stroke%3D%22%23ffd27a%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E") 14 9,grab}
+svg[data-tool=mop],svg[data-tool=mop] *{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20d%3D%22M24%202%20L15%2018%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%224.2%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M24%202%20L15%2018%22%20stroke%3D%22%23c98a4a%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M7%2018%20h14%20l2.5%2010%20H4.5%20Z%22%20fill%3D%22%23ffd27a%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M9%2022v6M13%2022v6M17%2022v6M21%2022v5%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.1%22/%3E%3Ccircle%20cx%3D%2227%22%20cy%3D%2222%22%20r%3D%222.2%22%20fill%3D%22%23d8ecff%22%20stroke%3D%22%236f8fc0%22%20stroke-width%3D%221%22/%3E%3Ccircle%20cx%3D%2229%22%20cy%3D%2217%22%20r%3D%221.4%22%20fill%3D%22%23d8ecff%22%20stroke%3D%22%236f8fc0%22%20stroke-width%3D%22.8%22/%3E%3C/svg%3E") 13 28,crosshair}
+svg[data-tool=torch],svg[data-tool=torch] *{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20d%3D%22M2%202%20L10%206%20L6%2010%20Z%22%20fill%3D%22%23fff3c4%22%20opacity%3D%22.9%22/%3E%3Cg%20transform%3D%22rotate%28-45%2016%2016%29%22%3E%3Cpath%20d%3D%22M11%205h10l-2%207h-6z%22%20fill%3D%22%23e7b75f%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2213%22%20y%3D%2212%22%20width%3D%226%22%20height%3D%2216%22%20rx%3D%222%22%20fill%3D%22%234a5a86%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2214.5%22%20y%3D%2216%22%20width%3D%223%22%20height%3D%224%22%20rx%3D%221%22%20fill%3D%22%23ffd27a%22/%3E%3Crect%20x%3D%2211.5%22%20y%3D%223.5%22%20width%3D%229%22%20height%3D%222%22%20rx%3D%221%22%20fill%3D%22%23fff6d0%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221%22/%3E%3C/g%3E%3C/svg%3E") 5 5,default}
+svg[data-tool=torch] :is(.crack.lit,.glint,.stand){cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20x%3D%223%22%20y%3D%2213%22%20width%3D%224.2%22%20height%3D%2210%22%20rx%3D%222.1%22%20transform%3D%22rotate%28-35%205%2018%29%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%229%22%20y%3D%228%22%20width%3D%224%22%20height%3D%228%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2213%22%20y%3D%227%22%20width%3D%224%22%20height%3D%229%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2217%22%20y%3D%229%22%20width%3D%224%22%20height%3D%227%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2212%22%20width%3D%223.6%22%20height%3D%225%22%20rx%3D%221.8%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M8%2014%20L8%2020%20Q8%2029%2016%2029%20Q24.6%2029%2024.6%2020%20L24.6%2014%20Z%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M26%204l2-2M27%208h3M23%202l.5-2%22%20stroke%3D%22%23ffd27a%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E") 14 9,pointer}
+svg.dragging,svg.dragging *{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20x%3D%229%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%227%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2213%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%227%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2217%22%20y%3D%2210%22%20width%3D%224%22%20height%3D%227%22%20rx%3D%222.0%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2210%22%20width%3D%223.6%22%20height%3D%227%22%20rx%3D%221.8%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M8%2014%20L8%2020%20Q8%2029%2016%2029%20Q24.6%2029%2024.6%2020%20L24.6%2014%20Z%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3Crect%20x%3D%225%22%20y%3D%2215%22%20width%3D%224.2%22%20height%3D%228%22%20rx%3D%222.1%22%20transform%3D%22rotate%28-60%207%2019%29%22%20fill%3D%22%23ffe7a6%22%20stroke%3D%22%232a1d10%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E") 15 12,grabbing!important}
+
+/* ===== v5 그래픽·불빛 ===== */
+.trash .art,.item .art,.pile .art{filter:url(#ol)}
+.trash:not(.gone):hover>.fx,.item:not(.drag):hover>.fx,.pile:not(.gone):hover>.fx{transform:scale(1.09)}
+.darkov{mix-blend-mode:multiply}
+.beamfx{mix-blend-mode:screen}
+.bdust{opacity:0;animation:bdust var(--d) ease-in-out var(--dl) infinite}
+@keyframes bdust{0%,100%{opacity:0;transform:translate(0,0)}50%{opacity:var(--o);transform:translate(var(--dx),var(--dy))}}
+.lbit{animation:lbit .65s cubic-bezier(.2,.8,.4,1) forwards;pointer-events:none}
+@keyframes lbit{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+.clue{opacity:0;transition:opacity .2s}
+.lantern{cursor:pointer}
+.lantern .lglass{transition:fill .6s}
+.lantern.on .lglass{fill:#ffc95a}
+.lantern .flame{opacity:0;transform-box:fill-box;transform-origin:50% 100%}
+.lantern.on .flame{opacity:1;animation:flick .16s ease-in-out infinite alternate}
+@keyframes flick{to{transform:scale(.9,1.12)}}
+.lglow{opacity:0;transition:opacity 1s}
+.lglow.on{opacity:1}
+.stand .pane{transition:filter .2s}
+.stand:hover .pane{filter:drop-shadow(0 0 6px #ffe7a6)}
+.block>.fx{transform-origin:50% 100%}
+@media (prefers-reduced-motion:reduce){.bdust,.lantern.on .flame{animation:none}.bdust{opacity:.5}}
 </style>
 </head>
 <body>
+<svg id="gdefs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs>
+  <!-- 종이·나무 그레인 질감 -->
+  <filter id="grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" stitchTiles="stitch" result="noise"/>
+    <feColorMatrix in="noise" type="matrix" values=".33 .33 .33 0 0  .33 .33 .33 0 0  .33 .33 .33 0 0  0 0 0 0 .4" result="gray"/>
+    <feComposite in="gray" in2="SourceGraphic" operator="in" result="clip"/>
+    <feBlend in="clip" in2="SourceGraphic" mode="soft-light"/>
+  </filter>
+  <!-- 쓰레기·소품 고동색 외곽선 -->
+  <filter id="ol" x="-25%" y="-25%" width="150%" height="150%">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1.7" result="fat"/>
+    <feFlood flood-color="#2B1D14"/>
+    <feComposite in2="fat" operator="in" result="line"/>
+    <feMerge><feMergeNode in="line"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="bblur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3"/></filter>
+  <filter id="bblur2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
+  <filter id="cglow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <radialGradient id="spotG"><stop offset="0" stop-color="#FFE2A8" stop-opacity=".95"/><stop offset=".35" stop-color="#FFB74D" stop-opacity=".55"/><stop offset="1" stop-color="#FFB74D" stop-opacity="0"/></radialGradient>
+  <radialGradient id="aoG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#05060f" stop-opacity=".55"/><stop offset="1" stop-color="#05060f" stop-opacity="0"/></radialGradient>
+  <linearGradient id="wallTopShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a0d1f" stop-opacity=".55"/><stop offset=".55" stop-color="#0a0d1f" stop-opacity=".12"/><stop offset="1" stop-color="#0a0d1f" stop-opacity="0"/></linearGradient>
+  <linearGradient id="floorAO" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#07081a" stop-opacity=".6"/><stop offset="1" stop-color="#07081a" stop-opacity="0"/></linearGradient>
+  <linearGradient id="shaftG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9b8" stop-opacity=".5"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></linearGradient>
+</defs></svg>
 <main class="app" id="app">
 
   <!-- ================= S1 시작 ================= -->
@@ -244,6 +338,8 @@ body{word-break:keep-all}
       </g>
       <g fill="#c8d0e6" opacity=".12"><ellipse cx="200" cy="420" rx="360" ry="40"/><ellipse cx="720" cy="440" rx="420" ry="46"/></g>
     </svg>
+    <div class="motes" id="motesTitle" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
     <div class="title-wrap">
       <small>등불섬 · 청소 힐링 웹게임</small>
       <h1>불빛 우체국</h1>
@@ -266,6 +362,9 @@ body{word-break:keep-all}
   <!-- ================= S2 플레이 ================= -->
   <section class="screen" id="s2" aria-label="플레이 화면">
     <div class="stage" id="stage2"></div>
+    <div class="motes" id="motesRoom" aria-hidden="true" style="opacity:.3"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="flash" id="flash" aria-hidden="true"></div>
     <header class="hud">
       <div class="name" id="stageName"><small>챕터 1 · 낡은 우체국</small>1-1 우체국 숙직실</div>
       <div class="gauge"><span>밝기</span><div class="bar"><i id="gaugeBar"></i></div><b id="gaugeNum">0%</b></div>
@@ -349,10 +448,30 @@ const U = 36, OX = 470, OY = 196;
 const P = (x, y, z = 0) => [OX + (x - y) * U, OY + (x + y) * U / 2 - z * U];
 const pts = a => a.map(p => p.map(n => n.toFixed(1)).join(',')).join(' ');
 const face = (arr, fill, stroke = '#00000040', extra = '') => `<polygon points="${pts(arr)}" fill="${fill}" stroke="${stroke}" stroke-width="1" ${extra}/>`;
+// 색 밝기 조절: k>0 밝게, k<0 어둡게
+const hx = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const toHex = a => '#' + a.map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
+const shade = (h, k) => { if (!/^#[0-9a-f]{6}$/i.test(h)) return h; const c = hx(h); return toHex(k >= 0 ? c.map(v => v + (255 - v) * k) : c.map(v => v * (1 + k))); };
+// 면 그라데이션: 윗면(밝음) · 왼쪽 면(중간) · 오른쪽 면(어두움) — 대비를 예전보다 2배 이상
+const GR = new Set();
+function grad(c, kind) {
+  if (!/^#[0-9a-f]{6}$/i.test(c)) return c;
+  const id = 'f' + kind + c.slice(1);
+  if (!GR.has(id)) {
+    GR.add(id);
+    const [a, b, dir] = kind === 't' ? [shade(c, .34), shade(c, .14), 'x1="0" y1="0" x2="1" y2="1"']
+      : kind === 'l' ? [shade(c, .04), shade(c, -.26), 'x1="0" y1="0" x2="0" y2="1"']
+      : [shade(c, -.42), shade(c, -.62), 'x1="0" y1="0" x2="0" y2="1"'];
+    document.querySelector('#gdefs defs').insertAdjacentHTML('beforeend', `<linearGradient id="${id}" ${dir}><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`);
+  }
+  return `url(#${id})`;
+}
 function box(x, y, z, w, d, h, top, left, right) {
-  return face([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], left) +
-         face([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)], right) +
-         face([P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)], top);
+  const A = P(x, y + d, z + h), B = P(x + w, y + d, z + h), C = P(x + w, y, z + h), D = P(x + w, y + d, z);
+  const rim = (w > .25 || d > .25) && h > .08 ? `<path d="M${A} L${B} L${C} M${B} L${D}" fill="none" stroke="#fff1d0" stroke-opacity=".38" stroke-width="1" stroke-linecap="round"/>` : '';
+  return face([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], grad(left, 'l'), '#00000055') +
+         face([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)], grad(right, 'r'), '#00000066') +
+         face([P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)], grad(top, 't'), '#00000040') + rim;
 }
 const $ = s => document.querySelector(s);
 const BAG = 20; // 봉투 용량
@@ -384,6 +503,10 @@ const Snd = {
     s.buffer = this.noise; f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = .9;
     this.env(g, t, vol, dur); s.connect(f).connect(g).connect(c.destination); s.start(t, Math.random() * .15, dur + .05);
   },
+  paper() { [0, 70, 150].forEach((d, i) => setTimeout(() => this.hiss(3200 + i * 700, .08, .05), d)); },
+  stamp() { this.tone(170, 55, .18, 'sine', .22); this.hiss(900, .07, .09); },
+  whoosh() { this.hiss(420, .7, .07); this.tone(220, 440, .9, 'sine', .05); },
+  click() { this.tone(660, 520, .05, 'sine', .03); },
   pop(p = 1) { this.tone(520 * p, 900 * p, .09, 'sine', .09); },
   amb: null,
   ambient(on) { // 잔잔한 파도 소리 + 가끔 풍경 소리
@@ -406,7 +529,7 @@ const Snd = {
 };
 
 // ---------------- 그림 ----------------
-const SH = '<ellipse cx="26" cy="40" rx="18" ry="5" fill="#0006"/>';
+const SH = '<ellipse cx="26" cy="41" rx="20" ry="5.6" fill="#07050c" opacity=".32"/><ellipse cx="26" cy="40.5" rx="12.5" ry="3.4" fill="#07050c" opacity=".62"/>';
 const HIT = '<ellipse cx="26" cy="28" rx="20" ry="15" fill="transparent"/>';
 const ART = {
   RAMEN: `<path d="M15 16 L37 16 L34 38 L18 38Z" fill="#f3efe6" stroke="#9a9384"/><path d="M15 16 L37 16 L36.4 22 L15.6 22Z" fill="#c8362b"/><ellipse cx="26" cy="16" rx="11" ry="3" fill="#e9dcc0" stroke="#9a9384"/><path d="M20 12 L40 0 M22 13 L42 2" stroke="#c79a5c" stroke-width="1.6"/>`,
@@ -461,8 +584,26 @@ const W = { top: '#a8714a', l: '#7a4f34', r: '#8e5d3d', dark: '#4c301f' };
 // ---------------- 방 설정 ----------------
 function walls(c) {
   let s = face([P(0, 0), P(10, 0), P(10, 8), P(0, 8)], c.floor);
-  if (c.checker) { for (let i = 0; i < 10; i++) for (let j = 0; j < 8; j++) if ((i + j) % 2) s += face([P(i, j), P(i + 1, j), P(i + 1, j + 1), P(i, j + 1)], c.checker, 'none'); }
-  else for (let i = 1; i < 10; i++) s += `<line x1="${P(i, 0)[0]}" y1="${P(i, 0)[1]}" x2="${P(i, 8)[0]}" y2="${P(i, 8)[1]}" stroke="${c.floorLine}" stroke-width="1.5"/>`;
+  if (c.checker) {
+    for (let i = 0; i < 10; i++) for (let j = 0; j < 8; j++) {
+      const col = (i + j) % 2 ? c.checker : c.floor;
+      s += face([P(i + .03, j + .03), P(i + .97, j + .03), P(i + .97, j + .97), P(i + .03, j + .97)], grad(shade(col, (rnd() - .5) * .08), 'l'), 'none');
+      s += `<path d="M${P(i + .05, j + .95)} L${P(i + .05, j + .05)} L${P(i + .95, j + .05)}" fill="none" stroke="#fff3dc" stroke-opacity=".12" stroke-width="1"/>`;
+    }
+  } else {
+    // 나무 판자: 판마다 색을 살짝 다르게 + 이음새 + 나뭇결
+    for (let i = 0; i < 10; i++) {
+      let j = -rnd() * 2.5;
+      while (j < 8) {
+        const j0 = Math.max(0, j), j1 = Math.min(8, j + 2.2 + rnd() * 1.6);
+        s += face([P(i, j0), P(i + 1, j0), P(i + 1, j1), P(i, j1)], grad(shade(c.floor, (rnd() - .45) * .16), 'l'), 'none');
+        for (let g = 0; g < 2; g++) { const a = i + .22 + rnd() * .56, w = (rnd() - .5) * .12; s += `<path d="M${P(a, j0 + .15)} Q${P(a + w, (j0 + j1) / 2)} ${P(a - w * .5, j1 - .15)}" fill="none" stroke="${shade(c.floor, -.3)}" stroke-opacity=".35" stroke-width=".8"/>`; }
+        if (j1 < 8) s += `<line x1="${P(i, j1)[0]}" y1="${P(i, j1)[1]}" x2="${P(i + 1, j1)[0]}" y2="${P(i + 1, j1)[1]}" stroke="${c.floorLine}" stroke-width="1.2"/>`;
+        j = j1;
+      }
+      if (i) s += `<line x1="${P(i, 0)[0]}" y1="${P(i, 0)[1]}" x2="${P(i, 8)[0]}" y2="${P(i, 8)[1]}" stroke="${c.floorLine}" stroke-width="1.6"/><line x1="${P(i, 0)[0] + 1}" y1="${P(i, 0)[1] + .5}" x2="${P(i, 8)[0] + 1}" y2="${P(i, 8)[1] + .5}" stroke="#fff1d0" stroke-opacity=".08" stroke-width="1"/>`;
+    }
+  }
   s += face([P(0, 0, 0), P(0, 8, 0), P(0, 8, 4.6), P(0, 0, 4.6)], c.wallL);
   s += face([P(0, 0, 0), P(10, 0, 0), P(10, 0, 4.6), P(0, 0, 4.6)], c.wallR);
   if (c.tile) { for (let z = .4; z < 4.6; z += .4) { s += `<line x1="${P(0, 0, z)[0]}" y1="${P(0, 0, z)[1]}" x2="${P(10, 0, z)[0]}" y2="${P(10, 0, z)[1]}" stroke="${c.tile}" stroke-width="1"/>`; s += `<line x1="${P(0, 0, z)[0]}" y1="${P(0, 0, z)[1]}" x2="${P(0, 8, z)[0]}" y2="${P(0, 8, z)[1]}" stroke="${c.tile}" stroke-width="1"/>`; } }
@@ -471,6 +612,10 @@ function walls(c) {
     for (let i = 1; i < 8; i++) s += `<line x1="${P(0, i, 0)[0]}" y1="${P(0, i, 0)[1]}" x2="${P(0, i, 4.6)[0]}" y2="${P(0, i, 4.6)[1]}" stroke="${c.wallLineL}" stroke-width="2"/>`;
   }
   s += face([P(0, 0, 0), P(10, 0, 0), P(10, 0, .25), P(0, 0, .25)], '#2f374d') + face([P(0, 0, 0), P(0, 8, 0), P(0, 8, .25), P(0, 0, .25)], '#283046');
+  // 천장 쪽 어둠 + 벽·바닥 이음새 그림자(AO) + 벽 위 테두리 하이라이트
+  s += face([P(0, 0, 0), P(0, 8, 0), P(0, 8, 4.6), P(0, 0, 4.6)], 'url(#wallTopShade)', 'none') + face([P(0, 0, 0), P(10, 0, 0), P(10, 0, 4.6), P(0, 0, 4.6)], 'url(#wallTopShade)', 'none');
+  s += face([P(0, 0), P(10, 0), P(10, .9), P(0, .9)], 'url(#floorAO)', 'none') + face([P(0, 0), P(.9, 0), P(.9, 8), P(0, 8)], 'url(#floorAO)', 'none');
+  s += `<path d="M${P(0, 8, 4.6)} L${P(0, 0, 4.6)} L${P(10, 0, 4.6)}" fill="none" stroke="#c9d3ff" stroke-opacity=".22" stroke-width="1.2"/><line x1="${P(0, 0, 0)[0]}" y1="${P(0, 0, 0)[1]}" x2="${P(0, 0, 4.6)[0]}" y2="${P(0, 0, 4.6)[1]}" stroke="#c9d3ff" stroke-opacity=".14"/>`;
   return s;
 }
 const mirrorStand = (m, i, onStool) => `<g class="stand" data-m="${i}"><circle class="standglow" cx="${P(m.x, m.y, m.z + .3)[0]}" cy="${P(m.x, m.y, m.z + .3)[1]}" r="34" fill="url(#glow)"/>${onStool ? box(m.x - .25, m.y - .25, 0, .5, .5, m.z, '#9c6a44', '#6e4a30', '#83583a') : ''}${box(m.x - .18, m.y - .18, m.z, .36, .36, .12, '#d6aa5c', '#a77b3b', '#b98a45')}<g class="pane"></g><circle cx="${P(m.x, m.y, m.z + .4)[0]}" cy="${P(m.x, m.y, m.z + .4)[1]}" r="26" fill="transparent"/></g>`;
@@ -478,7 +623,7 @@ const mirrorStand = (m, i, onStool) => `<g class="stand" data-m="${i}"><circle c
 const STAGES = {
   1: {
     id: 1, chapter: '챕터 1 · 낡은 우체국', title: '1-1 우체국 숙직실', mapName: '우체국',
-    colors: { floor: '#5a4534', floorLine: '#4a382a', wallL: '#3d4456', wallR: '#454c63', wallLineL: '#343a4b', wallLineR: '#3b4257' },
+    colors: { floor: '#5a4534', floorLine: '#4a382a', wallL: '#353c6a', wallR: '#3f4779', wallLineL: '#2d335c', wallLineR: '#363d6b' },
     opening: ['안개 낀 섬마을, 등불섬.', '새 우체국장으로 온 첫날, 내가 지낼 숙직실 문을 열었다.', '…오늘부터 여기서 살라고요?'],
     room() {
       let s = '';
@@ -514,7 +659,10 @@ const STAGES = {
       return s;
     },
     furniture() { return box(4.6, 4.2, 0, 1.6, 1.1, .5, '#9c6a44', '#6e4a30', '#83583a'); },
-    free: (x, y) => !((x < 1.3 && y > .8 && y < 4.6) || (y < 1.4 && x > 3 && x < 6.6) || (y < 1.7 && x > 6.9 && x < 9.8) || (x > 8.7 && y > 5.7 && y < 6.9) || (x > 4.4 && x < 6.4 && y > 4 && y < 5.5)),
+    free: (x, y) => !((x < 1.3 && y > .8 && y < 4.6) || (y < 1.4 && x > 3 && x < 6.6) || (y < 1.7 && x > 6.9 && x < 9.8) || (x > 8.7 && y > 5.7 && y < 6.9) || (x > 4.4 && x < 6.4 && y > 4 && y < 5.5) || Math.hypot(x - 8.8, y - 4.75) < .55 || (Math.abs(x - 5) < .55 && y > 1.8 && y < 4.1)),
+    blocks: [{ x: 5, y: 2.3, kind: 'boxes' }, { x: 5, y: 3.6, kind: 'bags' }],
+    lantern: { x: 8.8, y: 4.75 }, solve: ['B'],
+    clueFrom: [4.2, 7.8],
     onBed: (x, y) => x > 1.4 && x < 3.8 && y > 5.4 && y < 7.6,
     slots: [
       ...[.34, 1.64, 2.94].flatMap((z, r) => [1.75, 2.65, 3.55].map(y => ({ x: .6, y, z, g: 'shelf' + r }))),
@@ -522,7 +670,7 @@ const STAGES = {
       ...[7.6, 8.4, 9.1].map(x => ({ x, y: .75, z: 1.96, g: 'desk' })),
     ],
     items: [['BOOKS', '책 묶음', 2.0, 3.4, '종이'], ['LETTERS', '편지 다발', 6.9, 2.4, '종이'], ['FRAME', '액자', 8.0, 4.2, '장식'], ['PLANT', '화분', 1.8, 1.2, '장식'], ['LAMP', '램프', 3.7, 4.9, '장식'],
-      ['MUG', '머그잔', 5.2, 6.0, '장식'], ['ADDR', '주소록', 6.3, 3.4, '종이'], ['PARCEL', '소포', 4.2, 2.3, '종이'], ['SEAL', '도장', 8.6, 4.9, '문구'], ['INK', '잉크병', 2.9, 2.0, '문구']],
+      ['MUG', '머그잔', 5.2, 6.0, '장식'], ['ADDR', '주소록', 6.3, 3.4, '종이'], ['PARCEL', '소포', 4.2, 2.3, '종이'], ['SEAL', '도장', 6.6, 5.2, '문구'], ['INK', '잉크병', 2.9, 2.0, '문구']],
     trashKinds: ['RAMEN', 'CAN', 'CHIPS', 'PAPER', 'TISSUE', 'PET', 'SOCK', 'CAN2', 'PAPER', 'RAMEN'], nTrash: 34,
     piles: [{ art: 'PIZZA', x: 6.6, y: 6.4, hides: 'note' }, { art: 'CLOTHES', x: 2.4, y: 4.3, hides: 'lens' }],
     stains: [
@@ -534,9 +682,9 @@ const STAGES = {
     light: { // 빛이 들어오는 곳 (닦아야 켜짐)
       quad: [P(4.25, 0, 2.35), P(5.75, 0, 2.35), P(5.75, 0, 3.95), P(4.25, 0, 3.95)], grime: '#6b6648',
       paper: [P(4.3, 0, 3.9), P(5.0, 0, 3.9), P(5.0, 0, 3.0), P(4.3, 0, 3.15)], hard: 1.6, msg: '창문으로 달빛이 들어와요!',
-      src: { x: 5, y: 0, z: 3.1, dx: 0, dy: 1 },
+      src: { x: 5, y: 0, z: 3.1, dx: 0, dy: 1 }, pool: [[4.15, 2.0], [5.85, 2.0], [6.0, 3.7], [4.0, 3.7]],
     },
-    mirrors: [{ x: 5, y: 4.75, z: .5, lens: true, init: 'B' }],
+    mirrors: [{ x: 5, y: 4.75, z: .5, lens: true, init: 'Y' }],
     target: { wall: 'L', a: 4.75, z: 1 },
     glows: [[5, 0, 3.1, 150]], lampItem: 'LAMP',
     texts: {
@@ -576,7 +724,10 @@ const STAGES = {
       return s;
     },
     furniture() { return ''; },
-    free: (x, y) => !((x < 1.4 && y > 1 && y < 6.8) || (x > 7.2 && y < 1.6) || (x > 4.8 && x < 6.6 && y > 6) || (Math.hypot(x - 8.4, y - 4.5) < .55) || (Math.hypot(x - 2.4, y - 4.5) < .55)),
+    free: (x, y) => !((x < 1.4 && y > 1 && y < 6.8) || (x > 7.2 && y < 1.6) || (x > 4.8 && x < 6.6 && y > 6) || (Math.hypot(x - 8.4, y - 4.5) < .55) || (Math.hypot(x - 2.4, y - 4.5) < .55) || Math.hypot(x - 2.4, y - 6.5) < .55 || (Math.abs(x - 8.4) < .55 && y > 1.8 && y < 4)),
+    blocks: [{ x: 8.4, y: 2.4, kind: 'crates' }, { x: 8.4, y: 3.5, kind: 'sacks' }],
+    lantern: { x: 2.4, y: 6.5 }, solve: ['A', 'A'],
+    clueFrom: [9.5, 4.0],
     onBed: () => false,
     slots: [
       ...[2.0, 3.2, 4.4, 5.6].map(y => ({ x: .6, y, z: 1.4, g: 'counter' })),
@@ -590,16 +741,16 @@ const STAGES = {
     piles: [{ art: 'SACK', x: 6.5, y: 2.9, hides: 'note' }, { art: 'TRAY', x: 4.0, y: 6.4, hides: 'lens' }],
     stains: [
       { x: 6.0, y: 5.2, r: .8, c: '#3a2a10', hard: 2.2 }, { x: 3.6, y: 3.2, r: .75, c: '#efe9dc', hard: .7 }, { x: 6.6, y: 6.0, r: .55, c: '#7a1f28', hard: 1.2 },
-      { x: 4.8, y: 2.4, r: .6, c: '#1a120c', hard: 1.6 }, { x: 7.0, y: 2.4, r: .55, c: '#3a2a10', hard: 2 }, { x: 2.4, y: 6.4, r: .6, c: '#efe9dc', hard: .7 },
+      { x: 4.8, y: 2.4, r: .6, c: '#1a120c', hard: 1.6 }, { x: 7.0, y: 2.4, r: .55, c: '#3a2a10', hard: 2 }, { x: 3.0, y: 7.2, r: .6, c: '#efe9dc', hard: .7 },
       { x: 5.6, y: 7.0, r: .7, c: '#efe9dc', hard: .7, paw: true },
     ],
     wallStain: { wall: 'R', a: 8.4, z: 3.0, c: '#1c1612', hard: 2.2 },
     light: {
       quad: [P(7.85, 1.3, .5), P(8.95, 1.3, .5), P(8.95, 1.3, 1.35), P(7.85, 1.3, 1.35)], grime: '#3a2a10',
       paper: null, hard: 2.2, msg: '오븐 유리를 닦자 안에서 불빛이 새어 나와요!',
-      src: { x: 8.4, y: 1.3, z: .9, dx: 0, dy: 1 }, oven: true,
+      src: { x: 8.4, y: 1.3, z: .9, dx: 0, dy: 1 }, oven: true, pool: [[7.8, 1.6], [9.0, 1.6], [9.3, 2.9], [7.5, 2.9]],
     },
-    mirrors: [{ x: 8.4, y: 4.5, z: .6, lens: false, init: 'B', stool: true }, { x: 2.4, y: 4.5, z: .6, lens: true, init: 'A', stool: true }],
+    mirrors: [{ x: 8.4, y: 4.5, z: .6, lens: false, init: 'B', stool: true }, { x: 2.4, y: 4.5, z: .6, lens: true, init: 'X', stool: true }],
     target: { wall: 'R', a: 2.4, z: 1 },
     glows: [[8.4, 1.3, .9, 220]], lampItem: null,
     texts: {
@@ -644,6 +795,7 @@ function buildRoom(id) {
   ST = STAGES[id]; seed = 7 + id * 13;
   S = { tool: 'pick', bag: 0, trashLeft: 0, trashTotal: 0, stains: [], stainDone: 0, items: [], slotUsed: Array(ST.slots.length).fill(-1),
         noteFound: false, hasLens: false, mirrors: ST.mirrors.map(m => ({ placed: !m.lens, o: m.init })), lightOn: false, stampFound: false, cleared: false,
+        blocks: (ST.blocks || []).map(() => true), lanternLit: false, cluesSeen: {},
         beforeSVG: '', decoSel: null, combos: new Set(), fliesGone: false };
   svgEl.setAttribute('aria-label', ST.title);
   svgEl.innerHTML = `<defs>
@@ -652,20 +804,25 @@ function buildRoom(id) {
       <radialGradient id="hole"><stop offset="0" stop-color="#000"/><stop offset=".6" stop-color="#000" stop-opacity=".8"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
       <radialGradient id="warmG" cx=".5" cy=".55" r=".6"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".22"/><stop offset="1" stop-color="#ff9a3c" stop-opacity="0"/></radialGradient>
       <linearGradient id="paneG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8f1fb"/><stop offset=".5" stop-color="#9fbbe0"/><stop offset="1" stop-color="#7f9cc6"/></linearGradient>
-      <mask id="dk" maskUnits="userSpaceOnUse" x="0" y="0" width="960" height="540"><rect width="960" height="540" fill="#fff"/><circle id="torchHole" cx="-200" cy="-200" r="130" fill="url(#hole)"/></mask>
+      <mask id="dk" maskUnits="userSpaceOnUse" x="0" y="0" width="960" height="540"><rect width="960" height="540" fill="#fff"/><g id="beamHole" filter="url(#bblur2)"></g><circle id="torchHole" cx="-200" cy="-200" r="130" fill="url(#hole)"/></mask>
     </defs>
-    <rect width="960" height="540" fill="#0b0f1a"/>
-    <g id="gRoom">${walls(ST.colors)}${ST.room()}${targetSVG()}</g>
+    <rect width="960" height="540" fill="#1A1F33"/>
+    <g id="gRoom" filter="url(#grain)">${walls(ST.colors)}${ST.room()}</g>
+    <g id="gTarget">${targetSVG()}</g>
     <g id="gFloorDeco"></g>
+    <g id="gClues" pointer-events="none"></g>
     <g id="gStains"></g>
-    <g id="gTable">${ST.furniture()}${ST.mirrors.map((m, i) => mirrorStand(m, i, m.stool)).join('')}</g>
+    <g id="gTable" filter="url(#grain)">${ST.furniture()}${ST.mirrors.map((m, i) => mirrorStand(m, i, m.stool)).join('')}${lanternSVG()}</g>
     <g id="gObjs"></g>
     <g id="gLight"></g>
     <g id="gWallDeco"></g>
-    <rect id="dark" width="960" height="540" fill="#04070f" opacity=".6" mask="url(#dk)" pointer-events="none"/>
+    <rect id="dark" class="darkov" width="960" height="540" fill="#151a3c" opacity=".6" mask="url(#dk)" pointer-events="none"/>
     <rect id="warm" width="960" height="540" fill="url(#warmG)" opacity="0" pointer-events="none"/>
     <g id="gLampGlow" class="lampglow" pointer-events="none"></g>
-    <g id="gBeam" pointer-events="none"></g>
+    <g id="gShaft" class="beamfx" pointer-events="none"></g>
+    <g id="gBeam" class="beamfx" pointer-events="none"></g>
+    <g id="gLanternGlow" class="beamfx lglow" pointer-events="none"></g>
+    <g id="gClueTop" pointer-events="none"></g>
     <g id="gFx"></g>
     <g id="gSpots"></g>
     <g id="gTut" pointer-events="none"></g>`;
@@ -690,7 +847,7 @@ function buildRoom(id) {
   // 물건
   const gO = svgEl.querySelector('#gObjs');
   ST.items.forEach(([art, name, x, y, cat], i) => {
-    gO.insertAdjacentHTML('beforeend', `<g class="item" data-i="${i}"><g class="fx">${HIT}${SH}${ART[art]}</g></g>`);
+    gO.insertAdjacentHTML('beforeend', `<g class="item" data-i="${i}"><g class="fx">${HIT}${SH}<g class="art">${ART[art]}</g></g></g>`);
     const it = { el: gO.lastElementChild, art, name, cat, x, y, z: 0, slot: -1, rot: (rnd() - .5) * 60 };
     S.items.push(it); placeItem(it);
   });
@@ -702,7 +859,9 @@ function buildRoom(id) {
     addTrash(ST.trashKinds[n % ST.trashKinds.length], x, y, ST.onBed(x, y) ? .4 : 0, .62 + rnd() * .18, (rnd() - .5) * 60); n++;
   }
   ST.piles.forEach(p => addPile(p));
-  S.trashTotal = S.trashLeft = ST.nTrash + ST.piles.length;
+  (ST.blocks || []).forEach((b, i) => addBlock(b, i));
+  drawClues();
+  S.trashTotal = S.trashLeft = ST.nTrash + ST.piles.length + (ST.blocks || []).length;
   addFlies();
   sortObjs(); drawPanes(); updateBeam(); updateHUD();
   svgEl.classList.remove('lit');
@@ -716,7 +875,7 @@ function targetSVG() {
 }
 function addTrash(art, x, y, z, sc, rot) {
   const [sx, sy] = P(x, y, z);
-  svgEl.querySelector('#gObjs').insertAdjacentHTML('beforeend', `<g class="trash" data-d="${(x + y + z * 2).toFixed(2)}" transform="${spriteXF(sx, sy, sc)}"><g class="fx">${HIT}<g transform="rotate(${rot.toFixed(0)} 26 30)">${SH}${ART[art]}</g></g></g>`);
+  svgEl.querySelector('#gObjs').insertAdjacentHTML('beforeend', `<g class="trash" data-sx="${sx.toFixed(0)}" data-sy="${sy.toFixed(0)}" data-d="${(x + y + z * 2).toFixed(2)}" transform="${spriteXF(sx, sy, sc)}"><g class="fx">${HIT}${SH}<g transform="rotate(${rot.toFixed(0)} 26 30)"><g class="art">${ART[art]}</g></g></g></g>`);
 }
 function addPile(p) {
   const [sx, sy] = P(p.x, p.y); let inner = SH;
@@ -724,7 +883,66 @@ function addPile(p) {
   else if (p.art === 'SACK') inner += `<g transform="translate(-8 0)">${ART.SACK}</g><g transform="translate(9 2)">${ART.SACK}</g><g transform="translate(0 -14) scale(.9)">${ART.SACK}</g>`;
   else inner += `<g transform="scale(1.25) translate(-5 -8)">${ART.CLOTHES}</g><g transform="translate(6 -10)">${ART.SOCK}</g>`;
   const smell = `<path d="M10 0 q-4 -8 0 -16 q4 -8 0 -16" stroke="#9fc46a" stroke-width="2.4" fill="none" opacity=".8"/><path d="M34 2 q-4 -8 0 -16 q4 -8 0 -16" stroke="#9fc46a" stroke-width="2.4" fill="none" opacity=".8"/>`;
-  svgEl.querySelector('#gObjs').insertAdjacentHTML('beforeend', `<g class="pile" data-hp="3" data-hides="${p.hides}" data-x="${p.x}" data-y="${p.y}" data-d="${(p.x + p.y).toFixed(2)}" transform="${spriteXF(sx, sy, 1.15)}"><g class="fx">${HIT}${inner}${smell}</g></g>`);
+  svgEl.querySelector('#gObjs').insertAdjacentHTML('beforeend', `<g class="pile" data-hp="3" data-hides="${p.hides}" data-x="${p.x}" data-y="${p.y}" data-d="${(p.x + p.y).toFixed(2)}" transform="${spriteXF(sx, sy, 1.15)}"><g class="fx">${HIT}${SH}<g class="art">${inner.replace(SH, '')}</g>${smell}</g></g>`);
+}
+// 빛길을 막는 장애물 (치울 때마다 빛이 한 칸씩 더 들어와요)
+function addBlock(b, i) {
+  const { x, y } = b, [cx, cy] = P(x, y); let art = `<ellipse cx="${cx}" cy="${cy + 4}" rx="44" ry="13" fill="#07050c" opacity=".45"/>`;
+  if (b.kind === 'boxes' || b.kind === 'crates') {
+    const c = b.kind === 'boxes' ? ['#d2a465', '#b0813f', '#9a6c33'] : ['#a77a4c', '#86603a', '#70502f'];
+    art += box(x - .42, y - .36, 0, .84, .72, .62, ...c) + box(x - .3, y - .28, .62, .62, .54, .5, ...c.map(v => shade(v, .06)));
+    const t1 = P(x - .3, y, 1.12), t2 = P(x + .32, y, 1.12); art += `<line x1="${t1[0]}" y1="${t1[1]}" x2="${t2[0]}" y2="${t2[1]}" stroke="${b.kind === 'boxes' ? '#e9d7a8' : '#4c331d'}" stroke-width="3" stroke-opacity=".8"/>`;
+    if (b.kind === 'crates') for (const z of [.2, .42]) { const a1 = P(x - .42, y + .36, z), a2 = P(x + .42, y + .36, z); art += `<line x1="${a1[0]}" y1="${a1[1]}" x2="${a2[0]}" y2="${a2[1]}" stroke="#4c331d" stroke-width="1.5"/>`; }
+  } else {
+    const col = b.kind === 'bags' ? ['#2e3340', '#4a5163'] : ['#cdbb94', '#e6d7b2'];
+    for (const [dx, dy, r] of [[-18, -6, 20], [16, -4, 19], [0, -24, 21], [-6, -40, 14]]) art += `<path d="M${cx + dx - r} ${cy + dy} q0 ${-r * 1.4} ${r} ${-r * 1.5} q${r} ${r * .1} ${r} ${r * 1.5} q${-r} ${r * .55} ${-r * 2} 0z" fill="${col[0]}" stroke="#2B1D14" stroke-width="1.6"/><path d="M${cx + dx - r * .45} ${cy + dy - r * 1.05} q${r * .3} ${-r * .3} ${r * .6} ${-r * .2}" stroke="${col[1]}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+  }
+  svgEl.querySelector('#gObjs').insertAdjacentHTML('beforeend', `<g class="pile block" data-hp="3" data-block="${i}" data-x="${x}" data-y="${y}" data-d="${(x + y).toFixed(2)}"><g class="fx">${art}</g></g>`);
+}
+// 메인 등불: 빛을 이어야 방이 완성돼요
+function lanternSVG() {
+  const L = ST.lantern; if (!L) return '';
+  const { x, y } = L, top = P(x, y, 1.62), g = P(x, y, 1.12);
+  return `<g class="lantern" id="lantern">${box(x - .26, y - .26, 0, .52, .52, .5, '#9c6a44', '#6e4a30', '#83583a')}
+    ${box(x - .17, y - .17, .5, .34, .34, .08, '#d9a948', '#a8782a', '#bd8c38')}
+    <path d="M${g[0] - 12} ${g[1] + 14} L${g[0] - 9} ${g[1] - 14} L${g[0] + 9} ${g[1] - 14} L${g[0] + 12} ${g[1] + 14}Z" class="lglass" fill="#2a2f4a" stroke="#8a6424" stroke-width="2.2"/>
+    <path class="flame" d="M${g[0]} ${g[1] + 8} q-6 -7 0 -17 q6 10 0 17z" fill="#ffd36b"/>
+    <path d="M${g[0] - 13} ${g[1] - 14} L${top[0]} ${top[1] + 2} L${g[0] + 13} ${g[1] - 14}Z" fill="#c9963d" stroke="#7d5a24" stroke-width="1.5"/>
+    <circle cx="${top[0]}" cy="${top[1] - 3}" r="5" fill="none" stroke="#c9963d" stroke-width="2.2"/>
+    <line x1="${g[0]}" y1="${g[1] - 14}" x2="${g[0]}" y2="${g[1] + 14}" stroke="#8a6424" stroke-width="1.4"/>
+    <circle cx="${g[0]}" cy="${g[1]}" r="30" fill="transparent"/></g>`;
+}
+// 손전등 단서: 발자국 · 편지 실루엣 (손전등을 비춰야 보여요)
+function drawClues() {
+  const g = svgEl.querySelector('#gClues'), gt = svgEl.querySelector('#gClueTop'); g.innerHTML = ''; gt.innerHTML = '';
+  const [fx0, fy0] = ST.clueFrom || [9.5, 7.5];
+  ST.piles.forEach((p, k) => {
+    const n = 7, ang = Math.atan2(P(p.x, p.y)[1] - P(fx0, fy0)[1], P(p.x, p.y)[0] - P(fx0, fy0)[0]) * 180 / Math.PI + 90;
+    let prints = '', cs = [];
+    for (let i = 0; i < n; i++) {
+      const t = (i + .5) / (n + .6), gx = fx0 + (p.x - fx0) * t, gy = fy0 + (p.y - fy0) * t, side = i % 2 ? .13 : -.13;
+      const [sx, sy] = P(gx + side * .7, gy - side * .7); cs.push(sx.toFixed(0) + ',' + sy.toFixed(0));
+      prints += `<g transform="translate(${sx.toFixed(1)} ${sy.toFixed(1)}) rotate(${ang.toFixed(0)}) scale(1 .62)"><ellipse cy="-4" rx="4.6" ry="6.6"/><ellipse cy="6" rx="3.6" ry="3.2"/></g>`;
+    }
+    const [mx, my] = P(fx0 + (p.x - fx0) * .5, fy0 + (p.y - fy0) * .5);
+    g.insertAdjacentHTML('beforeend', `<g class="clue" data-pile="${k}" data-kind="steps" data-cx="${mx.toFixed(0)}" data-cy="${my.toFixed(0)}" data-pts="${cs.join(';')}" fill="#bfe8ff" filter="url(#cglow)">${prints}</g>`);
+    const [sx, sy] = P(p.x, p.y, .7);
+    const sil = p.hides === 'note'
+      ? `<rect x="-17" y="-11" width="34" height="22" rx="2" fill="none" stroke="#ffe7a6" stroke-width="2"/><path d="M-17 -11 L0 3 L17 -11" fill="none" stroke="#ffe7a6" stroke-width="2"/>`
+      : `<circle r="11" fill="none" stroke="#cfe2ff" stroke-width="2"/><path d="M-5 -4 a6 6 0 0 1 7 -3" stroke="#fff" stroke-width="2" fill="none"/>`;
+    gt.insertAdjacentHTML('beforeend', `<g class="clue" data-pile="${k}" data-kind="${p.hides}" data-cx="${sx.toFixed(0)}" data-cy="${sy.toFixed(0)}" filter="url(#cglow)"><g transform="translate(${sx.toFixed(1)} ${sy.toFixed(1)})">${sil}</g></g>`);
+  });
+}
+function torchReveal(p) {
+  svgEl.querySelectorAll('.clue').forEach(c => {
+    const d = c.dataset.pts ? Math.min(...c.dataset.pts.split(';').map(q => { const [a, b] = q.split(','); return Math.hypot(p.x - a, p.y - b); })) : Math.hypot(p.x - c.dataset.cx, p.y - c.dataset.cy), op = Math.max(0, Math.min(1, 1.35 - d / 95));
+    c.style.opacity = op.toFixed(2);
+    const key = c.dataset.pile + c.dataset.kind;
+    if (op > .7 && !S.cluesSeen[key]) {
+      S.cluesSeen[key] = true; Snd.tone(1320, 1760, .25, 'sine', .05);
+      toast(c.dataset.kind === 'steps' ? '희미한 발자국이 더미 쪽으로 이어져요' : c.dataset.kind === 'note' ? '더미 속에 편지 모양 그림자가 보여요!' : '더미 속에서 둥근 유리가 반짝여요!');
+    }
+  });
 }
 function addFlies() {
   const g = svgEl.querySelector('#gFx');
@@ -749,44 +967,99 @@ function drawPanes() {
     const i = +st.dataset.m, m = ST.mirrors[i], ms = S.mirrors[i], g = st.querySelector('.pane');
     st.classList.toggle('want', !ms.placed && S.hasLens);
     if (!ms.placed) { g.innerHTML = ''; return; }
-    const z0 = m.z + .12, z1 = m.z + .9;
-    const [a, b] = ms.o === 'A' ? [[m.x - .4, m.y + .4], [m.x + .4, m.y - .4]] : [[m.x - .4, m.y - .4], [m.x + .4, m.y + .4]];
+    const z0 = m.z + .12, z1 = m.z + .9, v = MIR[ms.o], k = Math.abs(v[0]) && Math.abs(v[1]) ? .4 : .55;
+    const [a, b] = [[m.x - v[0] * k, m.y - v[1] * k], [m.x + v[0] * k, m.y + v[1] * k]];
     const lerp = (t, z) => P(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, z);
     g.innerHTML = face([P(a[0], a[1], z0), P(b[0], b[1], z0), P(b[0], b[1], z1), P(a[0], a[1], z1)], '#c9963d', '#7d5a24') +
       face([lerp(.08, z0 + .06), lerp(.92, z0 + .06), lerp(.92, z1 - .06), lerp(.08, z1 - .06)], 'url(#paneG)', 'none');
   });
 }
-// 빛 따라가기: 칸을 따라 직진, 거울에서 90° 꺾임 (A: (dx,dy)→(-dy,-dx), B: (dx,dy)→(dy,dx))
+// 거울 방향 4가지 (누를 때마다 45°씩 회전): A ↘ X → B ↗ Y ↑ → 다시 A
+const MIR = { A: [1, -1], X: [1, 0], B: [1, 1], Y: [0, 1] }, MIR_NEXT = { A: 'X', X: 'B', B: 'Y', Y: 'A' };
+const reflect = (dx, dy, o) => { const [mx, my] = MIR[o], l2 = mx * mx + my * my, dot = dx * mx + dy * my; return [Math.round(2 * dot * mx / l2 - dx), Math.round(2 * dot * my / l2 - dy)]; };
+// 빛 따라가기: 칸을 따라 직진 → 장애물에 막히거나, 거울에서 꺾이거나, 등불·벽에 닿아요
 function traceBeam() {
   const L = ST.light.src, t = ST.target, BZ = 1.0;
   let x = L.x, y = L.y, dx = L.dx, dy = L.dy, last = -1;
-  const path = [P(L.x, L.y, L.z)];
+  const path = [P(L.x, L.y, L.z)], gp = [[L.x, L.y]], bends = [];
+  const end = (ex, ey, r) => { path.push(P(ex, ey, BZ)); gp.push([ex, ey]); return Object.assign({ path, gp, bends, hit: false }, r); };
   for (let k = 0; k < 600; k++) {
     x += dx * .05; y += dy * .05;
+    const bi = (ST.blocks || []).findIndex((b, i) => S.blocks[i] && Math.abs(b.x - x) < .3 && Math.abs(b.y - y) < .3);
+    if (bi >= 0) return end(x, y, { blocked: bi });
+    const Ln = ST.lantern; if (Ln && Math.abs(Ln.x - x) < .3 && Math.abs(Ln.y - y) < .3) return end(Ln.x, Ln.y, { lantern: true });
     const mi = ST.mirrors.findIndex((m, i) => i !== last && Math.abs(m.x - x) < .06 && Math.abs(m.y - y) < .06);
     if (mi >= 0) {
-      const m = ST.mirrors[mi], ms = S.mirrors[mi]; path.push(P(m.x, m.y, BZ)); x = m.x; y = m.y; last = mi;
-      if (!ms.placed) return { path, hit: false };
-      [dx, dy] = ms.o === 'A' ? [-dy, -dx] : [dy, dx]; continue;
+      const m = ST.mirrors[mi], ms = S.mirrors[mi]; x = m.x; y = m.y; last = mi;
+      if (!ms.placed) return end(m.x, m.y, { empty: mi });
+      const [nx, ny] = reflect(dx, dy, ms.o);
+      if (nx === -dx && ny === -dy) return end(m.x, m.y, { bounce: mi }); // 거울 정면: 빛이 되튕겨요
+      if (nx !== dx || ny !== dy) { path.push(P(m.x, m.y, BZ)); gp.push([m.x, m.y]); bends.push(path.length - 1); }
+      dx = nx; dy = ny; continue;
     }
-    if (x <= 0) { path.push(P(0, y, BZ)); return { path, hit: t.wall === 'L' && Math.abs(y - t.a) < .3 }; }
-    if (y <= 0) { path.push(P(x, 0, BZ)); return { path, hit: t.wall === 'R' && Math.abs(x - t.a) < .3 }; }
-    if (x >= 9.9 || y >= 7.9) { path.push(P(x, y, BZ)); return { path, hit: false }; }
+    if (x <= 0) return end(0, y, { hit: t.wall === 'L' && Math.abs(y - t.a) < .3, wall: true });
+    if (y <= 0) return end(x, 0, { hit: t.wall === 'R' && Math.abs(x - t.a) < .3, wall: true });
+    if (x >= 9.9 || y >= 7.9) return end(x, y, {});
   }
-  return { path, hit: false };
+  return end(x, y, {});
+}
+// 볼록 껍질 (창문 빛기둥 모양 만들기)
+function hull(ptsArr) {
+  const a = ptsArr.slice().sort((p, q) => p[0] - q[0] || p[1] - q[1]), cr = (o, p, q) => (p[0] - o[0]) * (q[1] - o[1]) - (p[1] - o[1]) * (q[0] - o[0]);
+  const lo = [], up = [];
+  for (const p of a) { while (lo.length > 1 && cr(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop(); lo.push(p); }
+  for (const p of a.reverse()) { while (up.length > 1 && cr(up[up.length - 2], up[up.length - 1], p) <= 0) up.pop(); up.push(p); }
+  return lo.slice(0, -1).concat(up.slice(0, -1));
 }
 function updateBeam() {
-  const g = svgEl.querySelector('#gBeam'), crack = svgEl.querySelector('#crack');
-  g.innerHTML = ''; crack.classList.remove('lit'); crack.querySelector('.crackglow').setAttribute('opacity', 0);
+  const g = svgEl.querySelector('#gBeam'), sh = svgEl.querySelector('#gShaft'), hole = svgEl.querySelector('#beamHole'), crack = svgEl.querySelector('#crack');
+  g.innerHTML = ''; sh.innerHTML = ''; hole.innerHTML = ''; crack.classList.remove('lit'); crack.querySelector('.crackglow').setAttribute('opacity', 0);
   const glass = svgEl.querySelector('#ovenGlass'); if (glass) glass.classList.toggle('oven-lit', S.lightOn);
-  if (!S.lightOn) return;
-  const { path, hit } = traceBeam(); const d = path.map(p => p.join(',')).join(' ');
-  g.innerHTML = `${face(ST.light.quad, '#bcd7ff', 'none', 'opacity=".25"')}
-    <polyline points="${d}" fill="none" stroke="#ffe7a6" stroke-opacity=".18" stroke-width="24" stroke-linejoin="round" stroke-linecap="round"/>
-    <polyline points="${d}" fill="none" stroke="#ffe7a6" stroke-opacity=".4" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
-    <polyline points="${d}" fill="none" stroke="#fff6dc" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  if (!S.lightOn) { S.beamInfo = null; return; }
+  const R = traceBeam(), { path, gp, hit } = R; S.beamInfo = R;
+  // ① 창문(오븐 유리)에서 쏟아지는 빛기둥 + 바닥에 떨어진 빛 웅덩이
+  { const L = ST.light, win = L.quad;
+    const fp = (L.pool || []).map(([a, b]) => P(a, b));
+    const shaft = hull(win.concat(fp));
+    sh.innerHTML = `<polygon points="${pts(shaft)}" fill="url(#shaftG)" opacity=".55" filter="url(#bblur2)"/>${fp.length ? `<polygon points="${pts(fp)}" fill="#ffd98a" opacity=".22" filter="url(#bblur)"/>` : ''}${face(win, '#cfe0ff', 'none', 'opacity=".35"')}`;
+    hole.innerHTML = `<polygon points="${pts(shaft)}" fill="#000" opacity=".55"/>`; }
+  // ② 빛줄기: 진행 방향으로 넓어지며 투명해지는 사다리꼴
+  let acc = 0, defs = '', vol = '', core = '', holes = '', dust = '';
+  for (let i = 1; i < path.length; i++) {
+    const [ax, ay] = path[i - 1], [bx, by] = path[i], len = Math.hypot(bx - ax, by - ay); if (len < 1) continue;
+    const nx = -(by - ay) / len, ny = (bx - ax) / len, w0 = 9 + acc * .045, w1 = 9 + (acc + len) * .045, o0 = Math.max(.16, .62 - acc / 1500), o1 = Math.max(.12, .62 - (acc + len) / 1500);
+    const poly = (k, j) => pts([[ax + nx * w0 * k, ay + ny * w0 * k], [bx + nx * w1 * j, by + ny * w1 * j], [bx - nx * w1 * j, by - ny * w1 * j], [ax - nx * w0 * k, ay - ny * w0 * k]]);
+    defs += `<linearGradient id="bg${i}" gradientUnits="userSpaceOnUse" x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}"><stop offset="0" stop-color="#FFE7B0" stop-opacity="${o0.toFixed(2)}"/><stop offset="1" stop-color="#FFB74D" stop-opacity="${o1.toFixed(2)}"/></linearGradient>`;
+    vol += `<polygon points="${poly(1.9, 2.1)}" fill="url(#bg${i})" opacity=".45" filter="url(#bblur2)"/><polygon points="${poly(.75, .85)}" fill="url(#bg${i})" filter="url(#bblur)"/>`;
+    core += `<line x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}" stroke="#fff6dc" stroke-opacity=".45" stroke-width="2.4" stroke-linecap="round"/>`;
+    holes += `<polygon points="${poly(2.4, 2.8)}" fill="#000"/>`;
+    for (let n = Math.max(3, Math.round(len / 26)), j = 0; j < n; j++) {
+      const t = Math.random(), wt = w0 + (w1 - w0) * t, off = (Math.random() - .5) * wt * 1.4;
+      dust += `<circle class="bdust" cx="${(ax + (bx - ax) * t + nx * off).toFixed(1)}" cy="${(ay + (by - ay) * t + ny * off).toFixed(1)}" r="${(.8 + Math.random() * 1.6).toFixed(1)}" fill="#ffe3a0" style="--d:${(4 + Math.random() * 5).toFixed(1)}s;--dl:-${(Math.random() * 8).toFixed(1)}s;--o:${(.4 + Math.random() * .6).toFixed(2)};--dx:${((Math.random() - .5) * 14).toFixed(0)}px;--dy:${(-6 - Math.random() * 14).toFixed(0)}px"/>`;
+    }
+    acc += len;
+  }
+  // ③ 반사광: 꺾이는 지점과 빛이 끝나는 곳, 그 아래 바닥
+  let spots = '';
+  const spotAt = (k, r) => { const [sx, sy] = path[k], [gx, gy] = gp[k], [fx, fy] = P(gx, gy); spots += `<circle cx="${sx}" cy="${sy}" r="${r}" fill="url(#spotG)"/><ellipse cx="${fx}" cy="${fy}" rx="${r * 1.2}" ry="${r * .55}" fill="url(#spotG)" opacity=".6"/>`; };
+  R.bends.forEach(k => spotAt(k, 40));
+  spotAt(path.length - 1, R.lantern ? 30 : 46);
+  g.innerHTML = `<defs>${defs}</defs><g>${vol}</g>${core ? `<g filter="url(#bblur)">${core}</g>` : ''}<g>${spots}</g><g>${dust}</g>`;
+  hole.insertAdjacentHTML('beforeend', holes);
+  // ④ 결과: 벽 틈(우표) · 막힘 안내 · 메인 등불
   if (hit && !S.stampFound) { crack.classList.add('lit'); crack.querySelector('.crackglow').setAttribute('opacity', 1); }
+  if (R.lantern && !S.lanternLit) lightLantern();
   return hit;
+}
+function lightLantern(silent) {
+  S.lanternLit = true;
+  const L = ST.lantern, el = svgEl.querySelector('#lantern'); if (!L || !el) return;
+  el.classList.add('on');
+  const [gx, gy] = P(L.x, L.y, 1.12), [fx, fy] = P(L.x, L.y);
+  svgEl.querySelector('#gLanternGlow').innerHTML = `<circle cx="${gx}" cy="${gy}" r="190" fill="url(#lampglow)"/><circle cx="${gx}" cy="${gy}" r="46" fill="url(#spotG)"/><ellipse cx="${fx}" cy="${fy}" rx="120" ry="50" fill="url(#spotG)" opacity=".5"/>`;
+  svgEl.querySelector('#gLanternGlow').classList.add('on'); // .lglow.on
+  if (silent) return;
+  setTimeout(() => { Snd.whoosh(); Snd.chime(); sparks(gx, gy, 14); popText(gx, gy - 40, '화르륵!', 34); shake(); toast(brightness() >= 1 ? '메인 등불에 불이 붙었어요!' : '메인 등불에 불이 붙었어요! 방을 마저 정리하면 완성이에요'); nextHint(); updateHUD(); }, 60);
 }
 
 // ---------------- 진행 ----------------
@@ -801,8 +1074,9 @@ function updateHUD() {
   const lc = lensCount() + (S.hasLens && !SAVE.lenses[ST.id] ? 1 : 0);
   $('#chipLens').hidden = lc === 0; $('#chipLens').textContent = `렌즈 조각 ${lc}/5`;
   $('#bagNum').textContent = `봉투 ${S.bag} / ${BAG}`; $('#bag').classList.toggle('full', S.bag >= BAG);
-  svgEl.querySelector('#dark').setAttribute('opacity', (.62 * (1 - brightness())).toFixed(3));
+  svgEl.querySelector('#dark').setAttribute('opacity', (.74 * (1 - brightness())).toFixed(3));
   svgEl.querySelector('#warm').setAttribute('opacity', (brightness() * 1.2).toFixed(3));
+  $('#motesRoom').style.opacity = S.cleared ? 1 : (.3 + brightness() * .6).toFixed(2);
   const stage = pct >= 90 ? 3 : pct >= 60 ? 2 : pct >= 30 ? 1 : 0;
   if (stage > (S.milestone || 0) && screenNow === 's2' && !S.cleared) { S.milestone = stage; if (stage < 3 || pct < 100) { toast(['', '방이 조금 밝아졌어요', '방에 온기가 돌아요', '거의 다 왔어요!'][stage]); Snd.tone(784, 784, .5, 'triangle', .05); } }
   const now = performance.now() - (S.t0 || performance.now()); S.ph = S.ph || {};
@@ -814,7 +1088,10 @@ function updateHUD() {
     S.fliesGone = true; svgEl.querySelectorAll('.fly').forEach(f => { f.classList.add('flyaway'); setTimeout(() => f.remove(), 1700); });
     if (screenNow === 's2') toast('파리가 창밖으로 날아갔어요');
   }
-  if (!S.cleared && pct >= 100 && screenNow === 's2') clearStage();
+  if (!S.cleared && pct >= 100 && screenNow === 's2') {
+    if (S.lanternLit || !ST.lantern) clearStage();
+    else if (!S.askedLantern) { S.askedLantern = true; toast('마지막으로 거울을 돌려 메인 등불에 빛을 이어 주세요'); }
+  }
 }
 const setHint = h => { $('#hint').innerHTML = h; };
 let toastT;
@@ -825,10 +1102,20 @@ function nextHint() {
   if (S.trashLeft > 0) return setHint(`✦ 누른 채 <b>쓸면</b> 여러 개가 한꺼번에! 냄새 나는 더미는 여러 번 눌러요 · 남은 쓰레기 <b>${S.trashLeft}</b>`);
   if (S.stainDone < S.stains.length) return setHint(`✦ <b>닦기(2)</b>로 얼룩 위를 문질러요. ${ST.id === 2 ? '오븐 유리' : '창문'}도 닦을 수 있어요`);
   if (itemsPlaced() < ST.items.length) return setHint('✦ 물건을 끌어서 칸에 놓아요. 같은 종류를 나란히 두면 <b>딩!</b>');
+  if (ST.lantern && !S.lanternLit) {
+    if (!S.lightOn) return setHint(`✦ ${ST.id === 2 ? '오븐 유리' : '창문'}를 닦아 빛을 들여요`);
+    if (S.blocks.some(Boolean)) return setHint('✦ 빛길을 막는 <b>상자·더미</b>를 치우면 빛이 더 깊이 들어와요');
+    if (S.mirrors.some(m => !m.placed)) return setHint('✦ 더미 밑 <b>렌즈 조각</b>을 찾아 빈 받침대에 끼워요');
+    return setHint('✦ 거울을 누르면 <b>45°씩</b> 돌아가요. 빛을 <b>메인 등불</b>까지 이어 주세요');
+  }
   setHint('✦ 거의 다 됐어요!');
 }
 
 // ---------------- 이펙트 ----------------
+function shake() { const a = $('.app'); if (!a) return; a.classList.remove('shake'); void a.offsetWidth; a.classList.add('shake'); }
+function puff(x, y, n = 4) { for (let i = 0; i < n; i++) { const dx = (Math.random() - .5) * 30, dy = (Math.random() - .5) * 14; fx(`<circle class="puff" cx="${(x + dx).toFixed(0)}" cy="${(y + dy).toFixed(0)}" r="${6 + Math.random() * 6}" fill="#cfc6b4" opacity=".6" style="animation-delay:${i * 30}ms"/>`, 600); } }
+function bagBump() { const b = $('#bag'); b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); }
+function lightBits(x, y, n = 6) { for (let i = 0; i < n; i++) { const a = Math.random() * 6.283, d = 16 + Math.random() * 30; fx(`<circle class="lbit" cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(1.2 + Math.random() * 1.8).toFixed(1)}" fill="${Math.random() < .5 ? '#ffe9a8' : '#FFB74D'}" style="--dx:${(Math.cos(a) * d).toFixed(0)}px;--dy:${(Math.sin(a) * d * .7 - 10).toFixed(0)}px"/>`, 650); } }
 function fx(html, ms) { const g = svgEl.querySelector('#gFx'); g.insertAdjacentHTML('beforeend', html); const el = g.lastElementChild; setTimeout(() => el.remove(), ms); }
 function sparks(x, y, n = 8) { for (let i = 0; i < n; i++) { const a = Math.random() * 6.28, d = 14 + Math.random() * 36; fx(`<path class="spark" transform="translate(${x + Math.cos(a) * d} ${y + Math.sin(a) * d * .6})" d="M0 -7 Q1 -1 7 0 Q1 1 0 7 Q-1 1 -7 0 Q-1 -1 0 -7Z" fill="#ffe9a8"/>`, 700); } }
 const bubble = (x, y) => fx(`<circle class="bubble" cx="${x}" cy="${y}" r="${3 + Math.random() * 5}" fill="#dcefff44" stroke="#fff" stroke-width="1.2"/>`, 800);
@@ -903,6 +1190,7 @@ svgEl.addEventListener('pointerdown', e => {
   const glint = t.closest('.glint'); if (glint) return openHidden(glint);
   const stand = t.closest('.stand'); if (stand) return clickStand(+stand.dataset.m);
   if (t.closest('.crack.lit')) return findStamp();
+  if (t.closest('.lantern') && S.tool !== 'mop') { const [lx, ly] = P(ST.lantern.x, ST.lantern.y, 1.6); popText(lx, ly - 10, S.lanternLit ? '따뜻해요' : '빛을 이어 주세요', 24); if (!S.lanternLit) toast('거울로 빛을 꺾어 이 등불까지 이어 주세요'); return; }
   const tr = t.closest('.trash'), pile = t.closest('.pile'), item = t.closest('.item');
   const p = svgPoint(e);
   if (S.tool === 'mop' && (tr || pile || item) && !stainAt(p)) setTool('pick', '줍기로 바꿨어요');
@@ -922,7 +1210,7 @@ const stainAt = p => S.stains.some(st => !st.done && ((p.x - st.cx) / st.rx) ** 
 svgEl.addEventListener('pointermove', e => {
   if (screenNow !== 's2') return;
   const p = svgPoint(e);
-  if (S.tool === 'torch') { const h = svgEl.querySelector('#torchHole'); h.setAttribute('cx', p.x); h.setAttribute('cy', p.y); }
+  if (S.tool === 'torch') { const h = svgEl.querySelector('#torchHole'); h.setAttribute('cx', p.x); h.setAttribute('cy', p.y); torchReveal(p); }
   if (drag) { drag.it.el.setAttribute('transform', spriteXF(p.x, p.y + 10, .85)); return; }
   if (sweep) {
     const dx = e.clientX - sweep.x, dy = e.clientY - sweep.y, d = Math.hypot(dx, dy); if (d < 4) return;
@@ -939,7 +1227,7 @@ svgEl.addEventListener('pointermove', e => {
     const dx = p.x - scrub.last.x, dy = p.y - scrub.last.y, d = Math.hypot(dx, dy); if (d < 2) return;
     if (scrubAt(p, d)) {
       scrub.dist += d;
-      if (scrub.dist > 22) { bubble(p.x + (Math.random() - .5) * 30, p.y); scrub.dist = 0; Snd.swish(); }
+      if (scrub.dist > 22) { bubble(p.x + (Math.random() - .5) * 30, p.y); lightBits(p.x, p.y - 6, 2); scrub.dist = 0; Snd.swish(); }
       if (scrub.prev && (dx * scrub.prev.x + dy * scrub.prev.y) < 0) Snd.squeak(1 + Math.random() * .2);
     }
     scrub.prev = { x: dx, y: dy }; scrub.last = p;
@@ -955,30 +1243,41 @@ svgEl.addEventListener('pointerup', endPointer); svgEl.addEventListener('pointer
 function pickTrash(el, streak = 0) {
   if (S.bag >= BAG) { toast('봉투가 꽉 찼어요!'); nextHint(); return; }
   el.classList.add('gone'); el.style.pointerEvents = 'none'; setTimeout(() => el.remove(), 360);
-  S.bag++; S.trashLeft--; Snd.pop(1 + Math.min(streak, 10) * .06); updateHUD(); nextHint();
+  if (el.dataset.sx) { puff(+el.dataset.sx, +el.dataset.sy - 8, 3); lightBits(+el.dataset.sx, +el.dataset.sy - 14, 5); }
+  S.bag++; S.trashLeft--; Snd.pop(1 + Math.min(streak, 10) * .06); bagBump(); updateHUD(); nextHint();
 }
 function hitPile(el) {
   if (S.bag >= BAG) { toast('봉투가 꽉 찼어요!'); nextHint(); return; }
   const hp = +el.dataset.hp - 1; el.dataset.hp = hp;
   el.classList.remove('hit'); void el.getBBox(); el.classList.add('hit'); Snd.pop();
   el.querySelector('.fx').style.scale = (.55 + hp * .15).toFixed(2);
+  { const [px, py] = P(+el.dataset.x, +el.dataset.y); puff(px, py - 14, hp > 0 ? 3 : 7); }
   if (hp > 0) return;
+  shake(); bagBump(); Snd.hiss(700, .25, .08);
   el.classList.add('gone'); el.style.pointerEvents = 'none'; setTimeout(() => el.remove(), 360);
-  S.bag++; S.trashLeft--; updateHUD();
+  S.bag++; S.trashLeft--;
+  if (el.dataset.block !== undefined) { // 빛길이 한 칸 열려요
+    S.blocks[+el.dataset.block] = false; updateBeam(); updateHUD();
+    const [bx, by] = P(+el.dataset.x, +el.dataset.y, 1); lightBits(bx, by, 14);
+    toast(S.lightOn ? (S.blocks.some(Boolean) ? '빛이 한 걸음 더 들어와요!' : '빛길이 활짝 열렸어요!') : '빛길이 열렸어요. 창을 닦으면 빛이 들어와요'); nextHint(); return;
+  }
+  updateHUD();
+  svgEl.querySelectorAll(`.clue[data-pile="${ST.piles.findIndex(q => q.x === +el.dataset.x && q.y === +el.dataset.y)}"]`).forEach(c => c.remove());
   const [sx, sy] = P(+el.dataset.x, +el.dataset.y), k = el.dataset.hides;
   svgEl.querySelector('#gFx').insertAdjacentHTML('beforeend', `<g class="glint" data-k="${k}"><circle cx="${sx}" cy="${sy - 10}" r="34" fill="url(#glow)"/>${k === 'note'
     ? `<g transform="translate(${sx - 20} ${sy - 28}) rotate(-12 20 14)"><rect x="4" y="4" width="32" height="22" rx="1.5" fill="#fbf1d6" stroke="#b39a6a"/><path d="M9 11h18M9 16h20M9 21h12" stroke="#b9a274" stroke-width="1.4"/></g>`
     : `<circle cx="${sx}" cy="${sy - 12}" r="13" fill="#cfe2ff" stroke="#fff" stroke-width="2"/><circle cx="${sx - 4}" cy="${sy - 16}" r="4" fill="#fff"/>`}<text x="${sx + 18}" y="${sy - 34}" font-size="18" fill="#ffdf9e">✦</text></g>`);
   sparks(sx, sy - 10); toast('더미 밑에서 무언가 반짝여요!'); nextHint();
 }
-$('#bag').addEventListener('click', () => { Snd.init(); if (!S || S.bag === 0) return; S.bag = 0; Snd.toss(); toast('봉투를 묶어서 휙!'); updateHUD(); nextHint(); });
+$('#bag').addEventListener('click', () => { Snd.init(); if (!S || S.bag === 0) return; S.bag = 0; Snd.toss(); bagBump(); toast('봉투를 묶어서 휙!'); updateHUD(); nextHint(); });
 
 function startDrag(e, it) {
   drag = { it }; if (it.slot >= 0) { S.slotUsed[it.slot] = -1; it.slot = -1; }
-  it.el.classList.add('drag'); svgEl.querySelector('#gFx').before(it.el); svgEl.setPointerCapture(e.pointerId);
+  it.el.classList.add('drag'); svgEl.classList.add('dragging'); svgEl.querySelector('#gFx').before(it.el); svgEl.setPointerCapture(e.pointerId);
   showSlots(true); Snd.pop();
 }
 function endDrag(e) {
+  svgEl.classList.remove('dragging');
   const { it } = drag, p = svgPoint(e);
   let best = -1, bd = 1e9;
   ST.slots.forEach((sl, i) => { if (S.slotUsed[i] >= 0) return; const [sx, sy] = P(sl.x, sl.y, sl.z); const d = Math.hypot(sx - p.x, sy - (p.y + 10)); if (d < bd) { bd = d; best = i; } });
@@ -1022,8 +1321,8 @@ function scrubAt(p, d) {
 }
 function finishStain(st) {
   st.done = true; st.el.classList.add('done'); S.stainDone++;
-  sparks(st.cx, st.cy, 10); Snd.chime(); popText(st.cx, st.cy - 20, '뽀득!');
-  if (st.isLight) { S.lightOn = true; updateBeam(); toast(ST.light.msg); }
+  sparks(st.cx, st.cy, 10); lightBits(st.cx, st.cy, 12); Snd.chime(); popText(st.cx, st.cy - 20, '뽀득!');
+  if (st.isLight) { S.lightOn = true; updateBeam(); toast(S.beamInfo && S.beamInfo.blocked !== undefined ? '빛이 들어왔지만 상자에 막혔어요. 치워 볼까요?' : ST.light.msg); }
   updateHUD(); nextHint();
 }
 function clickStand(i) {
@@ -1031,12 +1330,15 @@ function clickStand(i) {
   if (!ms.placed) {
     if (!S.hasLens) { toast('빈 받침대예요. 무언가 끼울 수 있을 것 같아요'); return; }
     ms.placed = true; Snd.tone(600, 1200, .2, 'triangle', .08); drawPanes(); updateBeam();
-    toast(S.lightOn ? '거울을 누르면 빛의 방향이 바뀌어요' : '빛이 들어오면 꺾을 수 있을 것 같아요'); return;
+    toast(S.lightOn ? '거울을 누를 때마다 45°씩 돌아가요' : '빛이 들어오면 꺾을 수 있을 것 같아요'); nextHint(); return;
   }
-  ms.o = ms.o === 'A' ? 'B' : 'A'; Snd.tone(900, 700, .08, 'square', .03); drawPanes();
-  if (updateBeam() && !S.stampFound) toast('빛이 닿은 곳이 반짝여요!');
+  ms.o = MIR_NEXT[ms.o]; Snd.tone(900, 700, .08, 'square', .03); Snd.tone(1400, 1200, .06, 'sine', .03); drawPanes();
+  { const m = ST.mirrors[i], [rx, ry] = P(m.x, m.y, m.z + 1.2); popText(rx, ry, '↻ 45°', 24); }
+  const hit = updateBeam(), R = S.beamInfo;
+  if (hit && !S.stampFound) toast('빛이 닿은 곳이 반짝여요!');
+  else if (R && R.bounce !== undefined) toast('거울 정면이라 빛이 되튕겨요');
 }
-function findStamp() { S.stampFound = true; updateBeam(); Snd.chime(); openModal('stamp'); }
+function findStamp() { S.stampFound = true; updateBeam(); Snd.stamp(); shake(); setTimeout(() => Snd.chime(), 180); openModal('stamp'); }
 function openHidden(g) { const k = g.dataset.k; g.remove(); if (k === 'note') { S.noteFound = true; openModal('note'); } else { S.hasLens = true; updateHUD(); openModal('lens'); } }
 
 function clearStage() {
@@ -1053,15 +1355,15 @@ function clearStage() {
   const seconds = Math.round((performance.now() - (S.t0 || performance.now())) / 1000);
   S.seconds = seconds;
   if (window.LPDB) window.LPDB.logPlay({ stage: id, seconds, stars: SAVE.stars[id], noteFound: S.noteFound, lensFound: S.hasLens, stampFound: S.stampFound, combos: S.combos.size, firstClear: !S.wasCleared, phases: S.ph || {}, sweeps: S.bestSweep || 0 }).catch(err => console.warn('기록 저장 실패', err));
-  Snd.fanfare(); toast(id === 2 ? '오븐에 불이 들어왔어요!' : '방에 불이 켜졌어요!'); sparks(480, 260, 24);
+  Snd.whoosh(); setTimeout(() => Snd.fanfare(), 250); shake(); { const f = $('#flash'); f.classList.remove('on'); void f.offsetWidth; f.classList.add('on'); } $('#motesRoom').style.opacity = 1; toast(id === 2 ? '오븐에 불이 들어왔어요!' : '방에 불이 켜졌어요!'); sparks(480, 260, 24);
   if (tut) tutEnd();
   setTimeout(() => showVisitor(() => { go('s4'); if (!SAVE.fb[id]) setTimeout(() => openModal('fb'), 900); }), 1400);
 }
 function setTool(t, msg) {
   S.tool = t; if (msg) toast(msg); document.querySelectorAll('.tool').forEach(b => b.classList.toggle('on', b.dataset.tool === t));
-  svgEl.classList.toggle('torch-on', t === 'torch'); svgEl.style.cursor = t === 'mop' ? 'crosshair' : 'default';
-  const h = svgEl.querySelector('#torchHole'); if (t !== 'torch') { h.setAttribute('cx', -200); h.setAttribute('cy', -200); }
-  if (t === 'torch') setHint('✦ 손전등을 비추면 <b>남은 쓰레기와 얼룩</b>이 반짝여요'); else if (!msg) nextHint();
+  svgEl.classList.toggle('torch-on', t === 'torch'); svgEl.dataset.tool = t;
+  const h = svgEl.querySelector('#torchHole'); if (t !== 'torch') { h.setAttribute('cx', -200); h.setAttribute('cy', -200); svgEl.querySelectorAll('.clue').forEach(c => c.style.opacity = 0); }
+  if (t === 'torch') setHint('✦ 손전등을 비추면 <b>남은 쓰레기·얼룩</b>과 숨은 <b>발자국·편지 그림자</b>가 보여요'); else if (!msg) nextHint();
 }
 document.querySelectorAll('.tool').forEach(b => b.addEventListener('click', () => setTool(b.dataset.tool)));
 window.addEventListener('keydown', e => {
@@ -1072,6 +1374,7 @@ window.addEventListener('keydown', e => {
 // ---------------- 팝업 ----------------
 const letterHTML = (lines, sign) => `<div class="letter"><span class="seal"></span>${lines.map(l => `<p>${l}</p>`).join('')}<p class="sign">${sign}</p></div>`;
 function openModal(kind, extra) {
+  if (kind === 'note' || kind === 'next') Snd.paper();
   const c = $('#modalCard'), T = ST && ST.texts[kind];
   let btn = '<button class="btn fill" type="button" data-close>닫고 계속 정리하기</button>';
   if (kind === 'note') c.innerHTML = `<h2>${T.h}</h2>${letterHTML(T.lines, T.sign)}${btn}`;
@@ -1099,7 +1402,8 @@ $('#modal').addEventListener('click', e => {
 });
 
 // ---------------- 결과 ----------------
-const uniqIds = (html, suf) => html.replace(/id="([^"]+)"/g, `id="$1${suf}"`).replace(/url\(#([^)]+)\)/g, `url(#$1${suf})`);
+// 비교 화면용 복사본: 안에서 만든 id만 바꿔요 (질감·그라데이션 같은 공용 정의는 그대로)
+const uniqIds = (html, suf) => { const own = new Set([...html.matchAll(/id="([^"]+)"/g)].map(m => m[1])); return html.replace(/id="([^"]+)"/g, `id="$1${suf}"`).replace(/url\(#([^)]+)\)/g, (m, k) => own.has(k) ? `url(#${k}${suf})` : m); };
 function showResult() {
   $('#cmpBefore').innerHTML = uniqIds(S.beforeSVG, '_b');
   const after = svgEl.cloneNode(true); after.classList.remove('torch-on'); after.querySelector('#gSpots').innerHTML = ''; after.querySelector('#gFx').innerHTML = '';
@@ -1191,8 +1495,9 @@ function buildClearedRoom(id) {
   S.stains.forEach(st => { st.done = true; st.el.classList.add('done'); }); S.stainDone = S.stains.length;
   S.items.forEach((it, i) => { it.slot = i; S.slotUsed[i] = i; placeItem(it); });
   S.lightOn = true; S.hasLens = !!SAVE.lenses[id]; S.stampFound = !!SAVE.stamps[id];
-  ST.mirrors.forEach((m, i) => { S.mirrors[i].placed = !m.lens || S.hasLens; });
-  sortObjs(); drawPanes(); updateBeam(); S.cleared = true; svgEl.classList.add('lit');
+  ST.mirrors.forEach((m, i) => { S.mirrors[i].placed = !m.lens || S.hasLens; if (ST.solve) S.mirrors[i].o = ST.solve[i]; });
+  S.blocks = S.blocks.map(() => false); S.lanternLit = true; svgEl.querySelectorAll('.clue').forEach(c => c.remove());
+  sortObjs(); drawPanes(); updateBeam(); S.cleared = true; svgEl.classList.add('lit'); lightLantern(true);
   const glows = ST.glows.map(([x, y, z, r]) => { const [a, b] = P(x, y, z); return `<circle cx="${a}" cy="${b}" r="${r}" fill="url(#lampglow)"/>`; });
   svgEl.querySelector('#gLampGlow').innerHTML = glows.join(''); svgEl.querySelector('#dark').setAttribute('opacity', 0);
 }
@@ -1279,7 +1584,7 @@ function go(id) {
   if (id === 's4') showResult();
   if (id === 's5') {
     if (!ST || ST.id !== 1) buildClearedRoom(1);
-    $('#stage5').appendChild(svgEl); svgEl.classList.remove('torch-on'); svgEl.style.cursor = 'default';
+    $('#stage5').appendChild(svgEl); svgEl.classList.remove('torch-on'); delete svgEl.dataset.tool;
     svgEl.querySelectorAll('.placed-prop').forEach(el => el.remove());
     Object.entries(SAVE.props).forEach(([pid, v]) => { const p = PROPS.find(q => q.id === pid); if (p && (!p.need || p.need())) { const keep = SAVE.props[pid]; delete SAVE.props[pid]; placeProp(pid, keep.i, true); } });
     buildTray(); drawSpots();
@@ -1341,6 +1646,15 @@ function onDBReady() {
 }
 function alertSoft(msg) { $('#saveNote').hidden = false; $('#saveNote').textContent = msg; }
 if (window.LPDB) onDBReady(); else window.addEventListener('lpdb-ready', onDBReady, { once: true });
+
+// 떠다니는 빛 가루 (시작 화면: 반딧불 / 방: 먼지 → 밝아질수록 따뜻한 빛)
+function makeMotes(box, n, c) {
+  const R = (a, b) => a + Math.random() * (b - a);
+  box.innerHTML = Array.from({ length: n }, () => `<i style="left:${R(4, 96).toFixed(1)}%;top:${R(25, 95).toFixed(1)}%;--s:${R(3, 8).toFixed(1)}px;--o:${R(.35, .9).toFixed(2)};--d:${R(7, 15).toFixed(1)}s;--dl:-${R(0, 15).toFixed(1)}s;--x:${R(-50, 50).toFixed(0)}px;--y:${R(-150, -50).toFixed(0)}px;--c:${c}"></i>`).join('');
+}
+makeMotes($('#motesTitle'), 18, '#ffe7a6'); makeMotes($('#motesRoom'), 24, '#fff0c8');
+// 버튼 누를 때 작은 '톡' 소리
+document.addEventListener('click', e => { if (e.target.closest('.btn,.tool,.prop') && Snd.ctx) Snd.click(); });
 
 window.__lp = { STAGES, get S() { return S; }, get SAVE() { return SAVE; } }; // 테스트용
 go('s1');
